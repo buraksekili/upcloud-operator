@@ -73,14 +73,6 @@ func NewClient() (Client, error) {
 	return Client{svc: svc}, nil
 }
 
-//[spec.server.hostname: Required value,
-// spec.server.metadata: Required value,
-// spec.server.networking: Required value,
-// spec.server.remote_access_enabled: Required value,
-// spec.server.storage_devices: Required value,
-// spec.server.title: Required value,
-// spec.server.zone: Required value
-
 func (c *Client) GetVM(ctx context.Context, UUID string) (*upcloud.ServerDetails, error) {
 	return c.svc.GetServerDetails(ctx, &request.GetServerDetailsRequest{UUID: UUID})
 }
