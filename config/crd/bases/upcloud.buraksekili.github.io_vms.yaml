@@ -1,0 +1,149 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.15.0
+  name: vms.upcloud.buraksekili.github.io
+spec:
+  group: upcloud.buraksekili.github.io
+  names:
+    kind: VM
+    listKind: VMList
+    plural: vms
+    singular: vm
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.server.hostname
+      name: Hostname
+      type: string
+    - jsonPath: .status.state
+      name: State
+      type: string
+    - jsonPath: .status.title
+      name: Title
+      type: string
+    - jsonPath: .status.UUID
+      name: UUID
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: VM is the Schema for the vms API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: VMSpec defines the desired state of VM
+            properties:
+              server:
+                properties:
+                  avoid_host:
+                    type: integer
+                  boot_order:
+                    type: string
+                  core_number:
+                    type: integer
+                  firewall:
+                    type: string
+                  host:
+                    type: integer
+                  hostname:
+                    type: string
+                  memory_amount:
+                    type: integer
+                  metadata:
+                    type: integer
+                  plan:
+                    type: string
+                  remote_access_enabled:
+                    type: integer
+                  remote_access_password:
+                    type: string
+                  remote_access_type:
+                    type: string
+                  server_group:
+                    type: string
+                  simple_backup:
+                    type: string
+                  storage_devices:
+                    items:
+                      description: CreateServerStorageDevice represents a storage
+                        device for a CreateServerRequest
+                      properties:
+                        action:
+                          type: string
+                        address:
+                          type: string
+                        encrypted:
+                          type: integer
+                        size:
+                          description: Storage size in gigabytes
+                          type: integer
+                        storage:
+                          type: string
+                        tier:
+                          type: string
+                        title:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - action
+                      - storage
+                      type: object
+                    type: array
+                  timezone:
+                    type: string
+                  title:
+                    type: string
+                  user_data:
+                    type: string
+                  zone:
+                    type: string
+                required:
+                - hostname
+                - metadata
+                - storage_devices
+                - title
+                - zone
+                type: object
+            required:
+            - server
+            type: object
+          status:
+            description: VMStatus defines the observed state of VM
+            properties:
+              UUID:
+                type: string
+              UpCloudVmHash:
+                type: string
+              state:
+                type: string
+              title:
+                type: string
+            required:
+            - state
+            - title
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

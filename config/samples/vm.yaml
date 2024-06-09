@@ -1,0 +1,19 @@
+apiVersion: upcloud.buraksekili.github.io/v1alpha1
+kind: VM
+metadata:
+  labels:
+    app.kubernetes.io/name: upcloud-operator
+  name: vm-sample
+spec:
+  server:
+    zone: fi-hel1
+    title: UpCloud Operator Test
+    hostname: "buraksekili.upcloudoperator.com"
+    metadata: 1
+    plan: "1xCPU-1GB"
+    storage_devices:
+      - action: "clone"
+        storage: "01000000-0000-4000-8000-000030220200"
+        title: "example.upcloud.com-disk0"
+        size: 25
+        tier: "maxiops"

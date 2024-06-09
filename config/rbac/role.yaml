@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - upcloud.buraksekili.github.io
+  resources:
+  - vms
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - upcloud.buraksekili.github.io
+  resources:
+  - vms/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - upcloud.buraksekili.github.io
+  resources:
+  - vms/status
+  verbs:
+  - get
+  - patch
+  - update

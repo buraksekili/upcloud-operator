@@ -1,0 +1,27 @@
+# permissions for end users to edit vms.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: upcloud-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: vm-editor-role
+rules:
+- apiGroups:
+  - upcloud.buraksekili.github.io
+  resources:
+  - vms
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - upcloud.buraksekili.github.io
+  resources:
+  - vms/status
+  verbs:
+  - get
